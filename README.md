@@ -1,4 +1,4 @@
-# shared-place
+# Shared Place
 
 <div align="left">
   <img src="https://img.shields.io/badge/GoLang-v1.22-00ADD8?logo=Go&logoColor=white" alt="go-badge">
