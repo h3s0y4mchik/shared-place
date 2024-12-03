@@ -1,10 +1,50 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"flag"
+	"log"
+	"os"
+	"path"
+	"shared-place/src/types"
+)
 
 func main() {
-	fmt.Println(" I came to L.A. to be rock and roll\n",
-		"Along the way I had to sell my soul\n",
-		"I made some good friends that make me say\n",
-		"I really wannabe in L.A")
+	// Flags
+	var cfgDir string
+	flag.StringVar(&cfgDir, "cfg", "", "Set config file directory")
+	flag.Parse()
+
+	if cfgDir == "" {
+		log.Fatal("Invalid argument! Use --help to list flags.")
+	}
+
+	// Check cfg file
+	fi, err := os.Stat(cfgDir)
+	if errors.Is(err, os.ErrNotExist) {
+		log.Fatal("Failed to open the configuration file.")
+	} else if err != nil {
+		log.Fatal("An error occured! Please report this issue on our repo issues.")
+	}
+
+	ext := path.Ext(fi.Name())
+	switch ext {
+	case ".yaml":
+		break
+	case ".yml":
+		break
+	case ".json":
+		break
+	case "toml":
+		break
+	default:
+		log.Fatal("This file extension is not supported.")
+	}
+
+	// Connect to the server
+	s, err := types.NewServer("123.456.789.10", 8080, "/var/contents")
+	if err != nil {
+		log.Fatal(err)
+	}
+	s.Connect()
 }

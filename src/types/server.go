@@ -3,20 +3,26 @@ package types
 type conn int
 
 type Server struct {
-	cfg *Config
+	addr string
+	port uint
+	dir  string
 }
 
-func NewServer(cfg *Config) (*Server, error) {
+func NewServer(addr string, port uint, dir string) (*Server, error) {
+	if err := validateAddr(addr); err != nil {
+		return nil, err
+	}
 	return &Server{
-		cfg,
+		addr, port, dir,
 	}, nil
 }
 
-func (s *Server) validateAddr() error {
+func validateAddr(addr string) error {
+	_ = addr
 	return nil
 }
 
-func (s *Server) connect() (*conn, error) {
+func (s *Server) Connect() (*conn, error) {
 	c := new(conn)
 	*c = 0
 	return c, nil

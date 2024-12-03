@@ -1,10 +1,8 @@
 package types
 
+// The program's config (to parse into).
 type Config struct {
-	addr string
-	port uint
-}
-
-func NewConfig(addr string, port uint) (*Config, error) {
-	return &Config{}, nil
+	Delay   float64 `json:"delay"`
+	Dir     string  `json:"dir"`
+	SVCFile string  `json:"service_file_dir"`
 }
